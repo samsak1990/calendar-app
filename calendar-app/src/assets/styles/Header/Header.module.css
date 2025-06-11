@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-bold-text);
+    padding-left: 25px;
+}
+
+.header__currentMonth {
+    font-weight: 800;
+    margin-right: auto;
+}
+
+.header__avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10x;
+}
+
+.header__controls {
+    display: flex;
+    flex-direction: row;
+    background-color: #F7F7F7;
+    padding: 5px;
+    border-radius: 30px;
+    gap: 4px;
+}
+
+.header__controls__button {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.header__controls__prev {
+    background: url('../../images/calendar_controls/arrow-left.svg') no-repeat center/14px;
+    background-color: #fff;
+}
+
+.header__controls__next {
+    background: url('../../images/calendar_controls/arrow-right.svg') no-repeat center/14px;
+    background-color: #fff;
+}
+
+.header__controls__today {
+    background-color: #fff;
+    padding: 0 10px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
