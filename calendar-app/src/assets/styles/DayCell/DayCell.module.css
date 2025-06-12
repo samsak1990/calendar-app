@@ -17,6 +17,11 @@
     color: #fff;
 }
 
+.calendar__day.today::after,
+.calendar__day:hover::after {
+    opacity: 0;
+}
+
 .calendar__day.shadow {
     opacity: 0.5;
 }
@@ -25,13 +30,13 @@
     content: '';
     display: block;
     position: absolute;
-    /* width: 30%; */
     height: 6px;
     background-color: var(--color-accent);
     bottom: 0;
     left: 50%;
     transform: translate(-50%);
     border-radius: 3px;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .calendar__day.task_1::after {
