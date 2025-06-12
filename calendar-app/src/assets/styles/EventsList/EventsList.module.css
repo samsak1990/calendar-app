@@ -5,6 +5,7 @@
 .eventsList__title {
     font-weight: bold;
     font-size: 22px;
+    padding: 0 20px;
 }
 
 .eventsList__empty {
