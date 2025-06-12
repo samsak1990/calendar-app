@@ -1,0 +1,22 @@
+
+
+.calendar__day {
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: 800;
+    border-radius: 20px;
+    width: 50px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.calendar__day.today,
+.calendar__day:hover {
+    background-color: var(--color-accent);
+    color: #fff;
+}
+
+.calendar__day.shadow {
+    opacity: 0.5;
+}
