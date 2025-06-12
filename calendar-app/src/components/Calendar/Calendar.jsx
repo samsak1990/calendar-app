@@ -7,17 +7,19 @@ import { fetchReminders } from '../../utils/api';
 import { WEEKDAYS } from '../../data/constants';
 import { API_URL, TOKEN, T_USER_ID } from '../../data/constants';
 import EventsList from '../EventsList/EventsList';
+import { getRemindersForSelectedDate } from '../../utils/getRemindersForSelectedDateю';
+import { getEventsCountForDay } from '../../utils/getEventsCountForDay';
 
 
 export default function Calendar() {
     const today = new Date();
-    // Состояния для управления календарем
+
     const [currentMonth, setCurrentMonth] = useState(today);
     const [selectedDate, setSelectedDate] = useState(today);
-    // Состояния для управления напоминаниями
+
     const [loading, setLoading] = useState(false);
     const [reminders, setReminders] = useState([]);
-    // Состояние для управления сворачиванием/разворачиванием недель
+
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const allDays = useDaysInMonth(currentMonth.getMonth(), currentMonth.getFullYear());
@@ -44,7 +46,7 @@ export default function Calendar() {
 
     const currentWeekIndex = Math.floor(
         allDays.findIndex(
-            d => d && d.toDateString() === today.toDateString()
+            d => d && d.toDateString() === selectedDate.toDateString()
             ) / 7
         );
         
@@ -52,23 +54,10 @@ export default function Calendar() {
         ? allDays.slice(currentWeekIndex * 7, currentWeekIndex * 7 + 7)
         : allDays;
 
-    const remindersForSelectedDate = []
-
-    for (const reminder in reminders.reminders) {
-        if (!reminders.reminders[reminder].reminder_on_datetime) continue;
-        if (!reminders.reminders[reminder].reminder_text) continue;
-
-        const reminderDate = new Date(reminders.reminders[reminder].reminder_on_datetime)
-
-        if (reminderDate.getFullYear() === selectedDate.getFullYear() &&
-            reminderDate.getMonth() === selectedDate.getMonth() &&
-            reminderDate.getDate() === selectedDate.getDate()) {
-            remindersForSelectedDate.push(reminders.reminders[reminder]);
-        }
-    }
+    const remindersForSelectedDate = getRemindersForSelectedDate(reminders, selectedDate) || [];
 
     useEffect(() => {
-        // Функция для получения напоминаний
+
         const fetchData = async () => {
             setLoading(true);
             try {
@@ -87,8 +76,6 @@ export default function Calendar() {
     }
     , [currentMonth]);
 
-
-
     return (
         <>
             <div className={`${style.calendar}  ${isCollapsed ? ` ${style.collapsed}` : ''}`}>
@@ -106,7 +93,14 @@ export default function Calendar() {
                 </div>
                 <div className={style.calendar__days}>
                     {days.map((date, index) => (
-                        <DayCell key={index} date={date} currentMonth={currentMonth} setSelectedDate={setSelectedDate} isSelectedDate={isSelectedDate} />
+                        <DayCell 
+                            key={index} 
+                            eventsCount={getEventsCountForDay(date, reminders)} 
+                            date={date} 
+                            currentMonth={currentMonth} 
+                            setSelectedDate={setSelectedDate} 
+                            isSelectedDate={isSelectedDate} 
+                        />
                     ))}
                 </div>
                 <div className={style.toggleWeek} onClick={() => setIsCollapsed(prev => !prev)} role='button'>

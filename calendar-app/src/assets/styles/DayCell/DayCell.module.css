@@ -1,6 +1,5 @@
-
-
 .calendar__day {
+    position: relative;
     display: inline-block;
     text-align: center;
     padding: 5px;
@@ -9,6 +8,7 @@
     border-radius: 20px;
     width: 50px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 5px;
 }
 
 .calendar__day.today,
@@ -19,4 +19,49 @@
 
 .calendar__day.shadow {
     opacity: 0.5;
+}
+
+.calendar__day::after {
+    content: '';
+    display: block;
+    position: absolute;
+    /* width: 30%; */
+    height: 6px;
+    background-color: var(--color-accent);
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    border-radius: 3px;
+}
+
+.calendar__day.task_1::after {
+    width: 10%;
+}
+
+.calendar__day.task_2::after {
+    width: 20%;
+}
+
+.calendar__day.task_3::after {
+    width: 30%;
+}
+
+.calendar__day.task_4::after {
+    width: 40%;
+}
+
+.calendar__day.task_5::after {
+    width: 50%;
+}
+
+.calendar__day.task_6::after {
+    width: 60%;
+}
+
+.calendar__day.task_7::after {
+    width: 70%;
+}
+
+.calendar__day.task_8::after {
+    width: 80%;
 }
